@@ -3,7 +3,7 @@ version: '3'
 services:
   api:
     build: api
-    command: ["flask", "run", "--host=0.0.0.0"]
+    command: ["flask", "run", "--host=0.0.0.0", "--debug"]
     volumes:
       - ./api:/backend
     environment:
