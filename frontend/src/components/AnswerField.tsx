@@ -1,40 +1,30 @@
-import React, { useState } from 'react';
-import { MdAttachFile } from 'react-icons/md';
-import { MdMic } from 'react-icons/md';
+import React, { useState } from "react";
 
 interface AnswerFieldProps {
   onSubmit: (answer: string) => void;
+  loading: boolean;
 }
 
-const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit }) => {
-  const [answer, setAnswer] = useState('');
-  
-  const handleAnswerChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setAnswer(event.target.value);
-  };
+const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit, loading }) => {
+  const [answer, setAnswer] = useState("");
 
   const handleSubmit = () => {
-    onSubmit(answer);
-    setAnswer('');
+    if (answer.trim()) {
+      onSubmit(answer);
+      setAnswer(""); // Clear input after sending
+    }
   };
 
   return (
     <div className="answer-field">
       <textarea
-        placeholder="Type your answer here..."
         value={answer}
-        onChange={handleAnswerChange}
+        onChange={(e) => setAnswer(e.target.value)}
+        placeholder="Type your answer..."
+        disabled={loading}
       />
-      <div className="attachments">
-        <button className="attachment-btn">
-          <MdAttachFile />
-        </button>
-        <button className="attachment-btn">
-          <MdMic />
-        </button>
-      </div>
-      <button className="submit-btn" onClick={handleSubmit}>
-        Submit Answer
+      <button onClick={handleSubmit} disabled={loading}>
+        {loading ? "Waiting..." : "Submit"}
       </button>
     </div>
   );
