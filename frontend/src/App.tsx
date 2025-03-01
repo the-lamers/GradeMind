@@ -12,17 +12,25 @@ const App: React.FC = () => {
   const [response, setResponse] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleAnswerSubmit = async (answer: string) => {
-    if (!answer.trim()) return;
+  const handleAnswerSubmit = async (answer: string | null, audio: Blob | null) => {
+    if (!answer?.trim() && !audio) return;
 
     setLoading(true);
     setResponse(null); // Reset previous response
 
     try {
+      const formData = new FormData();
+      if (answer) {
+        formData.append("answer", answer);
+      }
+      if (audio) {
+        formData.append("audio", audio, "recording.webm");
+      }
+
       const res = await fetch("http://localhost:5000/api/data", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answer }),
+        body: formData,
       });
 
       if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);

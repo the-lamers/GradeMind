@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import VoiceRecorder from "./VoiceRecorder";
 
 interface AnswerFieldProps {
-  onSubmit: (answer: string) => void;
+  onSubmit: (answer: string | null, audio: Blob | null) => void;
   loading: boolean;
 }
 
 const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit, loading }) => {
   const [answer, setAnswer] = useState("");
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
   const handleSubmit = () => {
-    if (answer.trim()) {
-      onSubmit(answer);
+    if (answer.trim() || audioBlob) {
+      onSubmit(answer, audioBlob);
+      setAudioBlob(null);
       setAnswer(""); // Clear input after sending
     }
   };
@@ -23,6 +26,7 @@ const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit, loading }) => {
         placeholder="Type your answer..."
         disabled={loading}
       />
+      <VoiceRecorder onAudioReady={setAudioBlob} />
       <button className="npm submit-btn" onClick={handleSubmit} disabled={loading}>
         {loading ? "Waiting..." : "Submit"}
       </button>
