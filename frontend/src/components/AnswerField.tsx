@@ -23,7 +23,7 @@ const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit, loading }) => {
         placeholder="Type your answer..."
         disabled={loading}
       />
-      <button onClick={handleSubmit} disabled={loading}>
+      <button className="npm submit-btn" onClick={handleSubmit} disabled={loading}>
         {loading ? "Waiting..." : "Submit"}
       </button>
     </div>
