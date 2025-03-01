@@ -19,7 +19,7 @@ body {
 }
 
 .header {
-  display: flex;
+  display: fixed;
   justify-content: space-between;
   align-items: center;
   background-color: #f8f8f8;
@@ -71,12 +71,16 @@ textarea {
 
 .submit-btn {
   padding: 10px;
+  width: calc(100vw - 32px);
   background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+
+  position:absolute;
+  bottom: 10px;
 }
 
 .step-line {
@@ -84,10 +88,10 @@ textarea {
   bottom: 0;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: left;
   padding: 10px 0;
   background-color: #f1f1f1;
-  justify-content: center;
+  justify-content: left;
 }
 
 .step-progress {
@@ -95,7 +99,6 @@ textarea {
   background-color: #007bff;
   border-radius: 2px;
   transition: width 0.3s ease;
-  flex-grow: 1;
 }
 
 .step-text {
