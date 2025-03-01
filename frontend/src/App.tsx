@@ -59,7 +59,8 @@ const App: React.FC = () => {
       <Header taskName="Гражданское право/ Введение/ Занятие 1" />
       {/* <Question questionText={currentQuestion} /> */}
       <Question questionText="Назовите признаки отношений, составляющих предмет гражданского права." />
-      <AnswerField onSubmit={handleAnswerSubmit} />
+      <AnswerField onSubmit={handleAnswerSubmit} loading={loading}/>
+      {response && <p className="response">{response}</p>}
       {/* <StepLine currentStep={step} totalSteps={5} /> */}
     </div>
   );
