@@ -6,10 +6,14 @@ interface StepLineProps {
 }
 
 const StepLine: React.FC<StepLineProps> = ({ currentStep, totalSteps }) => {
+  if (totalSteps === 0) return null; // Prevent division by zero
+
   return (
     <div className="step-line">
-      <div className="step-progress" style={{ width: `${(currentStep / totalSteps) * 100}%` }} />
-      <div className="step-text">{`${currentStep} of ${totalSteps}`}</div>
+      <div 
+        className="step-progress" 
+        style={{ width: `${(currentStep / totalSteps) * 100}%` }} 
+      />
     </div>
   );
 };

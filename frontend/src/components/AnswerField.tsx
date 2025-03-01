@@ -14,8 +14,8 @@ const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    onSubmit(answer); // Submit answer to the parent component (App.tsx)
-    setAnswer(''); // Reset the answer field after submitting
+    onSubmit(answer);
+    setAnswer('');
   };
 
   return (
@@ -29,7 +29,7 @@ const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit }) => {
         <button className="attachment-btn">
           <MdAttachFile />
         </button>
-        <button className="record-btn">
+        <button className="attachment-btn">
           <MdMic />
         </button>
       </div>
