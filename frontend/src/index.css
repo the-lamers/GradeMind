@@ -1,0 +1,307 @@
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  min-height: 100vh;
+  position: relative;
+}
+
+.header {
+  display: fixed;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
+.task-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.question-container {
+  margin-top: 20px;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.answer-field {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+textarea {
+  resize: none;
+  padding: 10px;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.attachments {
+  display: flex;
+  justify-content: space-between;
+}
+
+.attachment-btn,
+.record-btn {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.submit-btn {
+  padding: 10px;
+  width: calc(100vw - 32px);
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+
+  position:absolute;
+  bottom: 10px;
+}
+
+.step-line {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: left;
+  padding: 10px 0;
+  background-color: #f1f1f1;
+  justify-content: left;
+}
+
+.step-progress {
+  height: 5px;
+  background-color: #007bff;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.step-text {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Loading spinner style */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height to center spinner */
+}
+
+.spinner {
+  /* border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #3498db;
+  border-radius: 50%; */
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Base button styles */
+.recording-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: 50%;
+  background-color: #007bff; /* Default blue */
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+
+  margin-right: 10px;
+}
+
+/* Hover effect */
+.recording-btn:hover {
+  background-color: #0056b3; /* Darker blue */
+}
+
+/* Recording mode: Blue button with pulse effect */
+.recording-btn.recording-on {
+  background-color: #0056b3; /* Slightly darker blue when recording */
+  animation: pulse-blue 1.5s infinite ease-in-out;
+}
+
+/* Pulse animation */
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 15px 10px rgba(0, 123, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
+
+
+/* Style the audio player */
+audio {
+  max-width: 300px;
+  margin-top: 10px;
+  border-radius: 8px;
+  background-color: #007bff; /* Blue background */
+  color: white;
+}
+
+/* Customize audio controls */
+audio::-webkit-media-controls-panel {
+  background-color: #007bff; /* Blue background */
+  color: white;
+  border-radius: 8px;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-pause-button {
+  background-color: white;
+  border-radius: 50%;
+}
+
+audio::-webkit-media-controls-timeline {
+  background-color: #0056b3; /* Darker blue for progress bar */
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: white;
+}
+
+audio::-webkit-media-controls-volume-slider {
+  background-color: white;
+}
+
+audio::-webkit-media-controls-mute-button {
+  background-color: white;
+  border-radius: 50%;
+}
+
+.record-container {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.teacher-section {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.teacher-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.teacher-section textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  min-height: 150px;
+}
+
+.file-upload {
+  margin-bottom: 20px;
+}
+
+.file-upload label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.file-upload input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
