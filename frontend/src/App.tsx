@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Header from './components/Header';
 import Question from './components/Question';
 import AnswerField from './components/AnswerField';
@@ -8,7 +9,7 @@ interface ApiResponse {
 }
 
 const App: React.FC = () => {
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  // const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [response, setResponse] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +32,6 @@ const App: React.FC = () => {
       console.log("FormData:", formData);  //
       const res = await fetch("http://localhost:5000/api/data", {
         method: "POST",
-        //headers: { "Content-Type": "multipart/form-data" },
         body: formData,
       });
 
@@ -50,8 +50,17 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <Header taskName="Гражданское право/ Введение/ Занятие 1" />
-      <Question questionText="Назовите признаки отношений, составляющих предмет гражданского права." />
-      <AnswerField onSubmit={handleAnswerSubmit} loading={loading} />
+      {loading && (
+        <div className="loading-spinner">
+          <AiOutlineLoading3Quarters className="spiner" />
+        </div>
+      )}
+      {!loading && !response && (
+        <>
+          <Question questionText="Назовите признаки отношений, составляющих предмет гражданского права." />
+          <AnswerField onSubmit={handleAnswerSubmit} loading={loading} />
+        </>
+      )}
       {response && <p className="response">{response}</p>}
     </div>
   );
