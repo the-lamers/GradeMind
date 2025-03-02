@@ -180,7 +180,6 @@ textarea {
 
 /* Style the audio player */
 audio {
-  width: 100%; /* Makes it responsive */
   max-width: 300px;
   margin-top: 10px;
   border-radius: 8px;
