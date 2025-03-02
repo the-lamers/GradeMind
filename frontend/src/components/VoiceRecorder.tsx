@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { FaMicrophoneAlt } from "react-icons/fa";
 
 interface VoiceRecorderProps {
     onAudioReady: (audioBlob: Blob | null) => void;
@@ -11,23 +12,30 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onAudioReady }) => {
   const audioChunksRef = useRef<BlobPart[]>([]);
 
   const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
+    try{
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+  
+      mediaRecorder.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
+  
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        setAudioBlob(audioBlob);
+        audioChunksRef.current = [];
+        onAudioReady(audioBlob);
 
-    mediaRecorder.ondataavailable = (event) => {
-      audioChunksRef.current.push(event.data);
-    };
-
-    mediaRecorder.onstop = () => {
-      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-      setAudioBlob(audioBlob);
-      audioChunksRef.current = [];
-      onAudioReady(audioBlob);
-    };
-
-    mediaRecorderRef.current = mediaRecorder;
-    mediaRecorder.start();
-    setRecording(true);
+        stream.getTracks().forEach(track => track.stop()); // Release the mic
+      };
+  
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start();
+      setRecording(true);
+    } catch(error) {
+      alert("Что-то пошло не так...");
+      console.error(error);
+    }
   };
 
   const stopRecording = () => {
@@ -36,14 +44,13 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onAudioReady }) => {
   };
 
   return (
-    <div>
-      <button onClick={recording ? stopRecording : startRecording}>
-        {recording ? "Stop Recording" : "Start Recording"}
+    <div className="record-container">
+      <button onClick={recording ? stopRecording : startRecording} className={recording ? "recording-btn recording-on" : "recording-btn"}>
+        <FaMicrophoneAlt />
       </button>
       {audioBlob && (
         <div>
           <audio controls src={URL.createObjectURL(audioBlob)} />
-          {/* <button onClick={sendAudioToServer}>Upload</button> */}
         </div>
       )}
     </div>
