@@ -11,6 +11,7 @@ const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit, loading }) => {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
   const handleSubmit = () => {
+
     if (answer.trim() || audioBlob) {
       onSubmit(answer, audioBlob);
       setAudioBlob(null);

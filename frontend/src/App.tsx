@@ -13,6 +13,8 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const handleAnswerSubmit = async (answer: string | null, audio: Blob | null) => {
+    console.log("Answer:", answer); // Логируем ответ
+    console.log("Audio:", audio);  //
     if (!answer?.trim() && !audio) return;
 
     setLoading(true);
@@ -24,12 +26,12 @@ const App: React.FC = () => {
         formData.append("answer", answer);
       }
       if (audio) {
-        formData.append("audio", audio, "recording.webm");
+        formData.append("audio", audio);
       }
-
+      console.log("FormData:", formData);  //
       const res = await fetch("http://localhost:5000/api/data", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        //headers: { "Content-Type": "multipart/form-data" },
         body: formData,
       });
 
