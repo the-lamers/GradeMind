@@ -16,38 +16,6 @@ const App: React.FC = () => {
   const [gradingCriteria, setGradingCriteria] = useState<string>('');
   const [fileAttachment, setFileAttachment] = useState<File | null>(null);
 
-  const handleAnswerSubmit = async (answer: string | null, audio: Blob | null) => {
-    if (!answer?.trim() && !audio) return;
-
-    setLoading(true);
-    setResponse(null); // Reset previous response
-
-    try {
-      const formData = new FormData();
-      if (answer) {
-        formData.append("answer", answer);
-      }
-      if (audio) {
-        formData.append("audio", audio, "recording.webm");
-      }
-
-      const res = await fetch("http://localhost:5000/api/teacher", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-
-      const data: ApiResponse = await res.json();
-      setResponse(data.reply); // Assume API returns { reply: "Processed answer" }
-    } catch (error) {
-      setResponse("Error receiving response.");
-      console.error("API Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // Handler to manage file attachment
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -74,7 +42,7 @@ const App: React.FC = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/upload-grading", {
+      const res = await fetch("http://localhost:5000/api/teacher", {
         method: 'POST',
         body: formData,
       });
@@ -97,16 +65,16 @@ const App: React.FC = () => {
 
       {/* Teacher Section - Grading Criteria & File Upload */}
       <div className="teacher-section">
-        <h3>Grading Criteria</h3>
+        <h3>Критерии оценки</h3>
         <textarea
           value={gradingCriteria}
           onChange={(e) => setGradingCriteria(e.target.value)}
-          placeholder="Write grading criteria here..."
+          placeholder="Опишите критерии оценки для данной задачи..."
           rows={5}
         />
         
         <div className="file-upload">
-          <label htmlFor="file">Attach File</label>
+          <label htmlFor="file">Прикрепить файл</label>
           <input
             type="file"
             id="file"
@@ -116,7 +84,7 @@ const App: React.FC = () => {
         </div>
 
         <button onClick={handleGradingSubmit} disabled={loading} className="submit-btn">
-          {loading ? "Uploading..." : "Submit Grading Criteria"}
+          {loading ? "Загрузка..." : "Отправить"}
         </button>
       </div>
     </div>
