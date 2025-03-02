@@ -35,36 +35,17 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onAudioReady }) => {
     setRecording(false);
   };
 
-//   const sendAudioToServer = async () => {
-//     if (!audioBlob) return;
-
-//     const formData = new FormData();
-//     formData.append("audio", audioBlob, "recording.webm");
-
-//     try {
-//       const response = await fetch("http://localhost:5000/upload-audio", {
-//         method: "POST",
-//         body: formData, // No need to set `Content-Type`, FormData handles it
-//       });
-
-//       const data = await response.json();
-//       console.log("Server response:", data);
-//     } catch (error) {
-//       console.error("Upload error:", error);
-//     }
-//   };
-
   return (
     <div>
       <button onClick={recording ? stopRecording : startRecording}>
         {recording ? "Stop Recording" : "Start Recording"}
       </button>
-      {/* {audioBlob && (
+      {audioBlob && (
         <div>
           <audio controls src={URL.createObjectURL(audioBlob)} />
-          <button onClick={sendAudioToServer}>Upload</button>
+          {/* <button onClick={sendAudioToServer}>Upload</button> */}
         </div>
-      )} */}
+      )}
     </div>
   );
 };

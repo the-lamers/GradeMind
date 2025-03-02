@@ -23,12 +23,12 @@ const AnswerField: React.FC<AnswerFieldProps> = ({ onSubmit, loading }) => {
       <textarea
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
-        placeholder="Type your answer..."
+        placeholder="Напишите развернутый ответ..."
         disabled={loading}
       />
       <VoiceRecorder onAudioReady={setAudioBlob} />
       <button className="npm submit-btn" onClick={handleSubmit} disabled={loading}>
-        {loading ? "Waiting..." : "Submit"}
+        Ответить
       </button>
     </div>
   );
